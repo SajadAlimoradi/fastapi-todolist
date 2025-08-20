@@ -1,5 +1,5 @@
 from typing import List, Optional
-
+from ..utils import enum
 from sqlalchemy.orm import Session
 
 from . import models, schemas
@@ -9,6 +9,8 @@ def create_todo(db: Session, todo_in: schemas.TodoCreate) -> models.Todo:
     todo = models.Todo(
         title=todo_in.title,
         description=todo_in.description,
+        priority=todo_in.priority or enum.PriorityEnum.MEDIUM,
+        category=todo_in.category or enum.CategoryEnum.WORK,
         due_date=todo_in.due_date,
         completed=todo_in.completed or False,
     )
@@ -31,6 +33,10 @@ def update_todo(db: Session, todo: models.Todo, update: schemas.TodoUpdate) -> m
         todo.title = update.title
     if update.description is not None:
         todo.description = update.description
+    if update.priority is not None:
+        todo.priority = update.priority
+    if update.category is not None:
+        todo.category = update.category
     if update.completed is not None:
         todo.completed = update.completed
     if update.due_date is not None:
