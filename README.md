@@ -135,3 +135,5 @@ curl -X DELETE http://127.0.0.1:8000/todos/1 -i
 - CORS is open for simplicity. Lock it down in production.
 - No migrations are used; tables are created at startup.
 
+alembic revision --autogenerate -m "create todolist model"
+alembic upgrade head

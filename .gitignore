@@ -5,3 +5,4 @@ __pycache__/
 todolist.db
 .env
 *.sqlite
+migrations/versions/

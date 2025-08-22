@@ -10,7 +10,7 @@ from .database import Base, engine, get_db
 
 
 # Create tables on startup (for simple projects without migrations)
-Base.metadata.create_all(bind=engine)
+# Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="TodoList API", version="0.1.0")
 

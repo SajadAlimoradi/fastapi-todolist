@@ -12,6 +12,7 @@ def create_todo(db: Session, todo_in: schemas.TodoCreate) -> models.Todo:
         description=todo_in.description,
         priority=todo_in.priority or enum.PriorityEnum.MEDIUM,
         category=todo_in.category or enum.CategoryEnum.WORK,
+        recurrence=todo_in.recurrence or enum.RecurrenceEnum.NONE,
         due_date=todo_in.due_date,
         completed=todo_in.completed or False,
     )
@@ -54,7 +55,11 @@ def get_todos(
 
 
 def get_todo(db: Session, todo_id: int) -> Optional[models.Todo]:
-    return db.query(models.Todo).filter(models.Todo.id == todo_id).first()
+    return (
+        db.query(models.Todo)
+        .filter(models.Todo.id == todo_id)
+        .first()
+    )
 
 
 def update_todo(
@@ -74,6 +79,8 @@ def update_todo(
         todo.completed = update.completed
     if update.due_date is not None:
         todo.due_date = update.due_date
+    if update.recurrence is not None:
+        todo.recurrence = update.recurrence
     db.add(todo)
     db.commit()
     db.refresh(todo)

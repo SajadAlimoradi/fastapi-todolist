@@ -10,6 +10,7 @@ class TodoBase(BaseModel):
     priority: Optional[enum.PriorityEnum] = None
     category: Optional[enum.CategoryEnum] = None
     due_date: Optional[datetime] = None
+    recurrence: Optional[enum.RecurrenceEnum] = None
     completed: Optional[bool] = False
 
 
@@ -23,6 +24,7 @@ class TodoUpdate(BaseModel):
     category: Optional[enum.CategoryEnum] = None
     description: Optional[str] = None
     due_date: Optional[datetime] = None
+    recurrence: Optional[enum.RecurrenceEnum] = None
     completed: Optional[bool] = None
 
 
